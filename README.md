@@ -18,7 +18,7 @@ docker-compose up -d
 Now you can generate the root and the intermediate CA and perform
 the signing procedure as follows:
 
-```
+```golang
 package main
 
 import (
