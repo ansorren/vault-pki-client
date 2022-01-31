@@ -23,7 +23,6 @@ package main
 
 import (
 	"fmt"
-	"net/http"
 
 	"github.com/ansorren/vault-pki-client"
 )
