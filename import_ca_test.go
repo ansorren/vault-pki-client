@@ -6,7 +6,7 @@ import (
 	"github.com/stretchr/testify/require"
 )
 
-func TestClient_SetSignedCertificate(t *testing.T) {
+func TestClient_TestFullIntegration(t *testing.T) {
 	rootClient, err := NewClient(
 		WithAddress("http://localhost:8200"),
 		WithToken("admin"),
@@ -42,5 +42,17 @@ func TestClient_SetSignedCertificate(t *testing.T) {
 	require.Nil(t, err)
 
 	err = intermediateClient.SetSignedCertificate("pki", signedCertificate)
+	require.Nil(t, err)
+
+	opts := CreatePKIRoleOptions{
+		RoleName:         "foo",
+		AllowedDomains:   []string{"localhost"},
+		AllowSubdomains:  true,
+		AllowBareDomains: true,
+		AllowGlobDomains: true,
+		MaxTTL:           "768h",
+	}
+
+	err = intermediateClient.CreatePKIRole("pki", opts)
 	require.Nil(t, err)
 }
